@@ -1,0 +1,13 @@
+{
+  "name": "komo-module",
+  "version": "0.0.0",
+  "description": "module",
+  "main": "src/index",
+  "author": " <> ()",
+  "license": "UNLICENSED",
+  "homepage": "#readme",
+  "create-react-native-library": {
+    "type": "library",
+    "version": "0.41.2"
+  }
+}
