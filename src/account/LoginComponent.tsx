@@ -1,52 +1,47 @@
 // account/LoginComponent.js
-import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
- 
-const LoginComponent = ({ onLogin, backgroundColor, fontFamily, fontSize, channelId } : any) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
- 
-  const handleLogin = () => {
-    onLogin(username, password, channelId);
-  };
- 
+import React, { useState } from "react";
+import { View, StyleSheet, Text, Image } from "react-native";
+import { Passcode } from "../component";
+import { useEffect } from "react";
+
+const LoginComponent = ({ onLogin, logo }: any) => {
+  const [passcode, setPasscode] = useState("");
+
+  useEffect(() => {
+    if(passcode.length == 6){
+      onLogin(passcode)
+    }
+    return () => {
+    }
+  }, [passcode])
+  
+
   return (
-    <View style={[styles.container, { backgroundColor }]}>
-      <Text style={[styles.label, { fontFamily, fontSize }]}>Username:</Text>
-      <TextInput
-        style={[styles.input, { fontFamily, fontSize }]}
-        value={username}
-        onChangeText={setUsername}
-        placeholder="Enter username"
-      />
-      <Text style={[styles.label, { fontFamily, fontSize }]}>Password:</Text>
-      <TextInput
-        style={[styles.input, { fontFamily, fontSize }]}
-        value={password}
-        onChangeText={setPassword}
-        placeholder="Enter password"
-        secureTextEntry
-      />
-      <Button title="Login" onPress={handleLogin} />
-    </View>
+      <View style={styles.container}>
+        <Image source={logo}></Image>
+        <Text style={styles.welcomeText}>Welcome back!</Text>
+        <Passcode
+          setPasscode={setPasscode}
+          title="Enter your passcode"
+          length={6}
+          passcode={passcode}
+        ></Passcode>
+      </View>
   );
 };
- 
+
 const styles = StyleSheet.create({
-  container: {
+  container :{
+    flex: 1,
+    flexDirection : "column",
+    justifyContent : "space-evenly",
+    alignItems : 'center',
     padding: 20,
   },
-  label: {
-    marginBottom: 5,
+  welcomeText : {
+    fontSize : 25,
+    color : "white"
   },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 15,
-    paddingLeft: 10,
-  },
-});
- 
+
+})
 export default LoginComponent;
- 
